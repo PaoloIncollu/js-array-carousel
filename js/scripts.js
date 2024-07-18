@@ -15,42 +15,79 @@ console.log(imgArray);
 
 const myContainer = document.querySelector('.container'); // creata costante container
 
-let i = 0;
+const imgContainer = document.querySelector('.img-container');
 
-// imposta funzione per andare avanti con le immagini
-function avanti(){
-    
-    if (i < imgArray.length-1)
-        
-        i++;
-    
-    else 
 
-        i=0;
-        document.getElementById("image").src = imgArray[i];
-    
-      
-}
 
-// imposta funzione per andare indietro con le immagini
-
-function indietro(){
-    if (i == 0)
-       i = imgArray.length-1
-    else 
-       i--;
-    
-    document.getElementById("image").src = imgArray[i];
-}
 
 
 // ciclo per stambare nel html le immagini prendendo gli url dall'array
 
 for(let j = 0; j < imgArray.length; j ++){
     
-    const newImage = document.createElement("img");
+    /*const newImage = document.createElement("img");
     newImage.src = `${imgArray[j]}`;
-    document.getElementById('img-container').appendChild(newImage);
+    newImage.classList= 'img';
+    document.querySelector('.img-container').appendChild(newImage);*/
+    if(j == 0){
+        imgContainer.innerHTML+= `<img src="${imgArray[j]}" class=" active">`;
+    }
+    else{
+
+        imgContainer.innerHTML+= `<img src="${imgArray[j]}" >`;
+
+    }
 }
   
+const allImg = document.querySelectorAll('.img-container > img')
+let activeImg = 0;
+
+// imposta funzione per andare avanti con le immagini
+
+    const nextButton = document.getElementById('btn-right');
+    nextButton.addEventListener('click',
+        function (){
+        if (activeImg < (imgArray.length - 1)){  
+
+        allImg[activeImg].classList.remove('active');
+
+        activeImg++;
+
+        allImg[activeImg].classList.add('active');
+        
+        }
+        else{
+            allImg[activeImg].classList.remove('active');
+
+            activeImg= 0;
+
+            allImg[activeImg].classList.add('active');
+        }
+    });
+    
+// imposta funzione per andare indietro con le immagini
+    const prevButton = document.getElementById('btn-left');
+    prevButton.addEventListener('click',
+        function (){
+
+    if (activeImg > 0){
+
+        allImg[activeImg].classList.remove('active');
+
+        activeImg--;
+
+
+        allImg[activeImg].classList.add('active');
+    }
+       
+    else{
+        allImg[activeImg].classList.remove('active');
+
+        activeImg= 4;
+
+        allImg[activeImg].classList.add('active');
+        }
+    
+}
+)
 
